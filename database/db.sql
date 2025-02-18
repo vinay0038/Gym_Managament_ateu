@@ -1,0 +1,14 @@
+CREATE TABLE classes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    description TEXT NOT NULL,
+    schedule VARCHAR(100) NOT NULL,
+    trainer VARCHAR(100) NOT NULL
+);
+
+
+CREATE TABLE pages (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    page_name VARCHAR(50) NOT NULL,
+    content TEXT NOT NULL
+);
