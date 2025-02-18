@@ -85,6 +85,9 @@ CREATE TABLE diet_plans (
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
+ALTER TABLE attendance ADD COLUMN date DATE DEFAULT CURDATE();
+
+
 -- Sample Data
 INSERT INTO users (username, email, password, height, weight, fitness_goals, role) 
 VALUES ('admin', 'admin@gym.com', 'admin123', NULL, NULL, NULL, 'admin');
