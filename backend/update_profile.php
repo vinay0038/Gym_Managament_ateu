@@ -1,6 +1,6 @@
 <?php
 session_start();
-require '../backend/db.php'; // Include database connection
+require '../backend/db.php'; 
 
 // If the user is not logged in, redirect them to the login page
 if (!isset($_SESSION['user_id'])) {
