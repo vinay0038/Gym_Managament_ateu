@@ -1,6 +1,6 @@
 <?php
 // Include the database connection
-include("db.php");
+include("../config/db.php");
 
 // Fetch all memberships and user details
 $query = "
@@ -19,6 +19,11 @@ $result = $conn->query($query);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Membership Monitoring</title>
     <style>
+        h2{
+            padding:30px;
+            text-align:center;
+
+        }
         table {
             border-collapse: collapse;
             width: 100%;
@@ -34,8 +39,26 @@ $result = $conn->query($query);
         .no-membership {
             color: red;
         }
+        header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #333; /* Change as needed */
+    color: white;
+ 
+    text-align: center;
+    font-size: 18px;
+    z-index: 1000;
+}
+
     </style>
 </head>
+<header>
+<?php
+ include "header.php"
+ ?>
+ </header>
 <body>
     <h2>Membership Monitoring</h2>
     

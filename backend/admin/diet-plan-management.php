@@ -3,17 +3,7 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Database connection
-$host = 'localhost';
-$dbname = 'gym_management';
-$username = 'root';
-$password = '';
-$conn = new mysqli($host, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
+include '../config/db.php';
 // Initialize messages
 $success_message = "";
 $error_message = "";
@@ -60,44 +50,176 @@ $diet_types = ['Vegetarian', 'Keto', 'Vegan', 'Paleo', 'Mediterranean'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Diet Plan</title>
     <style>
-        table {
-            border-collapse: collapse;
-            width: 100%;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        .message {
-            padding: 10px;
-            margin-top: 10px;
-            border-radius: 5px;
-        }
-        .success {
-            background-color: #d4edda;
-            color: #155724;
-        }
-        .error {
-            background-color: #f8d7da;
-            color: #721c24;
-        }
+/* General Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Container */
+.container {
+    width: 90%;
+    max-width: 600px;
+    background: white;
+    padding: 50px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    text-align: center;
+}
+
+/* Heading */
+h2, h3 {
+    color: #333;
+    margin-bottom: 15px;
+}
+
+/* Messages */
+.message {
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.success {
+    background-color: #d4edda;
+    color: #155724;
+    border-left: 5px solid #28a745;
+}
+
+.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border-left: 5px solid #dc3545;
+}
+
+/* Table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+th, td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+th {
+    background-color:rgb(0, 0, 0);
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Form Styling */
+form {
+    margin-top: 20px;
+    text-align: left;
+}
+
+label {
+    font-weight: 600;
+    display: block;
+    margin: 10px 0 5px;
+}
+
+select, textarea, input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-top: 5px;
+}
+
+/* Textarea */
+textarea {
+    resize: vertical;
+}
+
+/* Button Styling */
+button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    transition: background 0.3s ease-in-out;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+        padding: 20px;
+    }
+
+    th, td {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    button {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+}
+
+    header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #333; /* Change as needed */
+    color: white;
+ 
+    text-align: center;
+    font-size: 18px;
+    z-index: 1000;
+}
     </style>
 </head>
+<header>
+<?php
+ include "header.php"
+ ?>
+ </header>
 <body>
-    <h2>Create Diet Plan</h2>
+    <div class="container">
 
     <?php if (!empty($success_message)): ?>
         <div class="message success"><?php echo $success_message; ?></div>
     <?php endif; ?>
+    
 
     <?php if (!empty($error_message)): ?>
         <div class="message error"><?php echo $error_message; ?></div>
     <?php endif; ?>
-
+    <h2>Create Diet Plan</h2>
     <form method="POST" action="">
         <table>
             <tr>
@@ -137,7 +259,7 @@ $diet_types = ['Vegetarian', 'Keto', 'Vegan', 'Paleo', 'Mediterranean'];
 
         <button type="submit" name="submit_diet_plan">Save Diet Plan</button>
     </form>
-
+            </div>
     <?php $conn->close(); ?>
 </body>
 </html>

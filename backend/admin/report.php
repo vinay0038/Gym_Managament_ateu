@@ -1,6 +1,6 @@
 <?php
 // Include the database connection
-include("db.php");
+include("../config/db.php");
 
 // Fetch all users and their details
 $stmt = $conn->prepare("SELECT id, username, email, height, weight, fitness_goals, role, created_at FROM users");
@@ -29,28 +29,84 @@ $total_memberships = $total_memberships_result->fetch_assoc()['total_memberships
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Report</title>
     <style>
-        table {
-            border-collapse: collapse;
-            width: 100%;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        .stats {
-            margin-bottom: 20px;
-            padding: 10px;
-            border: 1px solid #ddd;
-            background-color: #f9f9f9;
-            border-radius: 5px;
-        }
+      /* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Container */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Heading */
+h2, h3 {
+    text-align: center;
+    color: #333;
+}
+
+/* Statistics Section */
+.stats {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+    background: #007bff;
+    color: white;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.stats p {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* Table Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+th {
+    background: #007bff;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background: #f2f2f2;
+}
+
+tr:hover {
+    background: #ddd;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .stats {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
     </style>
 </head>
 <body>
+    <div class="container">
     <h2>Admin Report</h2>
 
     <!-- Statistics Section -->
@@ -97,5 +153,6 @@ $total_memberships = $total_memberships_result->fetch_assoc()['total_memberships
     $stmt->close();
     $conn->close();
     ?>
+    </div>
 </body>
 </html>

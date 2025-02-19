@@ -1,6 +1,6 @@
 <?php
 // Include database connection
-include("db.php");
+include("../config/db.php");
 
 // Initialize message variables
 $success_message = "";
@@ -35,34 +35,137 @@ $result = $stmt->get_result();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Management</title>
     <style>
-        table {
-            border-collapse: collapse;
-            width: 100%;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        .message {
-            padding: 10px;
-            margin-top: 10px;
-            border-radius: 5px;
-        }
-        .success {
-            background-color: #d4edda;
-            color: #155724;
-        }
-        .error {
-            background-color: #f8d7da;
-            color: #721c24;
-        }
+        /* General Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Container */
+.container {
+    width: 90%;
+    max-width: 800px;
+    background: white;
+    padding: 25px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    text-align: center;
+}
+
+/* Heading */
+h2, h3 {
+    color: #333;
+    margin-bottom: 15px;
+}
+
+/* Messages */
+.message {
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.success {
+    background-color: #d4edda;
+    color: #155724;
+    border-left: 5px solid #28a745;
+}
+
+.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border-left: 5px solid #dc3545;
+}
+
+/* Table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+th, td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+th {
+    background-color:rgb(0, 0, 0);
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Delete Button */
+a {
+    display: inline-block;
+    padding: 8px 12px;
+    margin-top: 5px;
+    color: white;
+    background-color:rgb(0, 0, 0);
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background 0.3s ease-in-out;
+}
+
+a:hover {
+    background-color: #c82333;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+        padding: 20px;
+    }
+
+    th, td {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    a {
+        font-size: 14px;
+        padding: 6px 10px;
+    }
+}
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #333; /* Change as needed */
+    color: white;
+ 
+    text-align: center;
+    font-size: 18px;
+    z-index: 1000;
+}
+
     </style>
 </head>
+<header>
+<?php
+ include "header.php"
+ ?>
+ </header>
 <body>
+    <div class="container">
     <h2>User Management</h2>
 
     <!-- Success or Error Message -->
@@ -111,5 +214,6 @@ $result = $stmt->get_result();
     <?php endif; ?>
 
     <?php $conn->close(); ?>
+    </div>
 </body>
 </html>

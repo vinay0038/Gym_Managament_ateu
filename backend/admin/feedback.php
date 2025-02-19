@@ -1,6 +1,6 @@
 <?php
 // Include database connection
-include 'db.php';
+include '../config/db.php';
 
 // Query to fetch feedbacks along with user details
 $sql = "SELECT feedback.id, users.username, feedback.trainer_name, feedback.rating, feedback.comments, feedback.submitted_at 
@@ -19,21 +19,88 @@ $result = $conn->query($sql);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Feedbacks</title>
     <style>
-        table {
-            border-collapse: collapse;
-            width: 100%;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
+      /* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Container */
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 50px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Heading */
+h2 {
+    text-align: center;
+    color: #333;
+}
+
+/* Table Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+th {
+    background:rgb(0, 0, 0);
+    color: white;
+}
+
+tr:nth-child(even) {
+    background: #f2f2f2;
+}
+
+tr:hover {
+    background: #ddd;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    table {
+        font-size: 14px;
+    }
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #333; /* Change as needed */
+    color: white;
+ 
+    text-align: center;
+    font-size: 18px;
+    z-index: 1000;
+}
+
     </style>
 </head>
+<header>
+<?php
+ include "header.php"
+ ?>
+ </header>
 <body>
+    <div class="container">
     <h2>User Feedbacks</h2>
 
     <table>
@@ -61,7 +128,7 @@ $result = $conn->query($sql);
             <tr><td colspan="6">No feedbacks found.</td></tr>
         <?php endif; ?>
     </table>
-
+        </div>
 </body>
 </html>
 
