@@ -88,3 +88,7 @@ CREATE TABLE diet_plans (
 -- Sample Data
 INSERT INTO users (username, email, password, height, weight, fitness_goals, role) 
 VALUES ('admin', 'admin@gym.com', 'admin123', NULL, NULL, NULL, 'admin');
+
+
+INSERT INTO admins (username, email, password_hash, role)
+VALUES ('admin', 'admin@example.com', PASSWORD('admin_password'), 'superadmin');
