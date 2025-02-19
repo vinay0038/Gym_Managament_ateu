@@ -1,3 +1,21 @@
+<?php
+
+include 'db.php';
+
+$activeMembersQuery = "SELECT COUNT(*) AS active_members FROM memberships WHERE end_date >= CURDATE()";
+$activeMembersResult = $conn->query($activeMembersQuery);
+$activeMembers = $activeMembersResult->fetch_assoc()['active_members'];
+
+$pendingBookingsQuery = "SELECT COUNT(*) AS pending_bookings FROM bookings";
+$pendingBookingsResult = $conn->query($pendingBookingsQuery);
+$pendingBookings = $pendingBookingsResult->fetch_assoc()['pending_bookings'];
+
+$feedbackQuery = "SELECT COUNT(*) AS new_feedback FROM feedback";
+$feedbackResult = $conn->query($feedbackQuery);
+$newFeedback = $feedbackResult->fetch_assoc()['new_feedback'];
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -59,9 +77,9 @@
     <div class="card">
       <h3>Quick Overview</h3>
       <ul>
-        <li>Active Members: 120</li>
-        <li>Pending Bookings: 15</li>
-        <li>New Feedback: 8</li>
+        <li>Active Members: <?php echo $activeMembers; ?></li>
+        <li>Pending Bookings: <?php echo $pendingBookings; ?></li>
+        <li>New Feedback: <?php echo $newFeedback; ?></li>
       </ul>
     </div>
   </div>
