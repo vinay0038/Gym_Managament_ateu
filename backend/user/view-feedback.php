@@ -2,26 +2,20 @@
 session_start();
 require '../config/db.php';
 
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
-    exit();
-}
-
-$user_id = $_SESSION['user_id'];
-
-// Fetch the diet plan for the logged-in user
-$sql = "SELECT diet_type, meal_plan, recommended_by FROM diet_plans WHERE user_id = ?";
+$user_id = $_SESSION['user_id']; // Get logged-in user ID
+$sql = "SELECT trainer_name, rating, comments, submitted_at FROM feedback WHERE user_id = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $user_id);
 $stmt->execute();
 $result = $stmt->get_result();
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diet Plan</title>
+    <title>My Feedback</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/style.css"> 
 
@@ -44,20 +38,22 @@ $result = $stmt->get_result();
         h2 {
             color: black;
         }
-        .diet-plan {
-            background: #fff;
-            padding: 15px;
-            margin: 15px 0;
-            border-radius: 8px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-            text-align: left;
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
         }
-        h3 {
-            color: #e67e22;
-            margin-bottom: 10px;
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
         }
-        p {
-            margin: 5px 0;
+        th {
+            background-color: #e67e22;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
         }
         .back-link {
             display: block;
@@ -74,18 +70,23 @@ $result = $stmt->get_result();
 <body>
 
     <div class="container">
-        <h2>Your Diet Plan</h2>
-        <?php if ($result->num_rows > 0): ?>
+        <h2>My Feedback</h2>
+        <table>
+            <tr>
+                <th>Trainer</th>
+                <th>Rating</th>
+                <th>Comments</th>
+                <th>Date</th>
+            </tr>
             <?php while ($row = $result->fetch_assoc()): ?>
-                <div class="diet-plan">
-                    <h3>Diet Type: <?php echo htmlspecialchars($row['diet_type']); ?></h3>
-                    <p><strong>Meal Plan:</strong> <?php echo nl2br(htmlspecialchars($row['meal_plan'])); ?></p>
-                    <p><strong>Recommended By:</strong> <?php echo htmlspecialchars($row['recommended_by']); ?></p>
-                </div>
+                <tr>
+                    <td><?= htmlspecialchars($row['trainer_name']) ?></td>
+                    <td><?= $row['rating'] ?></td>
+                    <td><?= htmlspecialchars($row['comments']) ?></td>
+                    <td><?= $row['submitted_at'] ?></td>
+                </tr>
             <?php endwhile; ?>
-        <?php else: ?>
-            <p>No diet plan assigned yet.</p>
-        <?php endif; ?>
+        </table>
         
         <a href="../../frontend/user-dashboard.html" class="back-link">Back to Dashboard</a>
     </div>

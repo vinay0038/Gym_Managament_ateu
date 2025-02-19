@@ -113,8 +113,8 @@
 
     <div class="login-container">
         <h2>Select Your Role</h2>
-        <a href="admin_login.html" class="btn">Admin</a>
-        <a href="user_login.html" class="btn">User</a>
+        <a href="/gym_management_system/backend/admin/admin-login.php" class="btn">Admin</a>
+        <a href="/gym_management_system/frontend/login.html" class="btn">User</a>
     </div>
 
 </body>

@@ -1,8 +1,3 @@
-<?php
-// Enable error reporting for debugging
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-?>
 
 <?php
 // Enable error reporting for debugging
@@ -39,9 +34,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($result->num_rows === 1) {
         $row = $result->fetch_assoc();
         // Verify the password
-        if (password_verify($password, $row['password_hash'])) {
+        if ($password == $row['password_hash']) {
             echo "Login successful! Welcome, " . $row['username'] . ".";
-            // You can redirect to an admin dashboard or another page here
+            header("Location: /gym_management_system/backend/functions/admin-function.php");
+            exit();
         } else {
             echo "Invalid password. Please try again.";
         }
